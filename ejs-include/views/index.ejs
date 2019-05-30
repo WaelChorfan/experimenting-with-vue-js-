@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    
+    <ul>
+      <% colors.forEach(function(color){ %>
+<!-- <li>   
+<%= color.color %>
+</li> -->
+          <%- include('inc1', {c: color.color}); %>
+      <% }); %>
+    </ul>
+
+  </body>
+</html>
