@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Gannt 1</title>
+
+<!-- bootstrap -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+<!-- vue -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.5/vue.js"> </script> -->
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+
+<!-- font awesome -->
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+<!-- moment js -->
+<script src="https://momentjs.com/downloads/moment.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    {{Welcome}}
+    <hr>
+    <input type="text" v-model="name" placeholder="name">
+    <input type="date" v-model="start">
+    <input type="date" v-model="end">
+    <button @click="gantt_m" :disabled="disableButton">submit</button>
+    <div style="margin-bottom: 5px;"></div>
+    <div v-for="item in gantt">
+      {{item.name}}<div :style="{'width': `${item.progress}px`,
+                     'margin-left': `${item.startDate}px`,
+                     'background-color': `${item.color}`} " style="height: 20px;  margin-bottom: 5px;">
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        Welcome: "Gannt diagram",
+        start: '',
+        end: '',
+        name: '',
+        gantt: [
+
+        ]
+      },
+      computed: {
+        disableButton() {
+          var vm = this
+          return (!vm.start && !vm.end)
+        }
+      },
+      methods: {
+        gantt_m() {
+          var vm = this,
+            start = new Date(vm.start),
+            end = new Date(vm.end),
+            offset = 10,
+            name = vm.name;
+
+          vm.gantt.push({
+            name: name,
+            start: start.getDate(),
+            end: end.getDate() + 1,
+            startDate: start.getDate() * offset,
+            progress: ((end.getDate() - start.getDate()) + 1) * offset,
+            color: '#' + Math.floor(Math.random() * 16777215).toString(16)
+          })
+        },
+      }
+    })
+  </script>
+</body>
+
+</html>
