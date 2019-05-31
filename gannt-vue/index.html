@@ -37,7 +37,7 @@
   body {
     margin: 1%;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-    background-image: url('./images/bg.jpg');
+    /* background-image: url('./images/bg.jpg'); */
   }
 
   a {
@@ -63,10 +63,14 @@
     <button @click="gantt_m" :disabled="disableButton">submit</button>
     <div style="margin-bottom: 5px;"></div>
     <div v-for="item in gantt">
-      {{item.name}}<div :style="{'width': `${item.progress}px`,
+      
+      <div :style="{'width': `${item.progress}px`,
                      'margin-left': `${item.startDate}px`,
                      'background-color': `${item.color}`} " style="height: 20px;  margin-bottom: 5px;">
-      </div>
+                     {{item.name}}
+      
+      
+                    </div>
     </div>
 
   </div>
@@ -97,6 +101,8 @@
             offset = 10,
             name = vm.name;
 
+console.log(start.getDate());
+console.log(start);
           vm.gantt.push({
             name: name,
             start: start.getDate(),
